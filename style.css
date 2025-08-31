@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'Minecraft';
+    src: url('/Fonts/minecraft-font/MinecraftRegular-Bmg3.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #333;
+    color: white;
+    font-family: Minecraft;
+    text-align: center;
+}
+
+.leaderboard {
+    background-color: #222;
+    border: 1px solid #444;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.leaderboard-title {
+    color: #54FC39;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+
+.leaderboard-subtitle {
+    color: #AAAAAA; 
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+#Podium_Container{
+    width: 400px;
+    height: 650px;
+}
+
+#podium {
+    width: 400px;
+    position: absolute;
+    margin-top: 220px;
+}
+
+#First_place_baltop {
+    position: absolute;
+    width: 110px;
+    padding-left: 146px;
+}
+#Second_place_baltop {
+    position: absolute;
+    width: 110px;
+    padding-left: 30px;
+    padding-top: 226px;
+}
+#Third_place_baltop {
+    position: absolute;
+    width: 110px;
+    padding-left: 262px;
+    padding-top: 106px;
+}
+
+#podium_text_flex_box{
+    width: 400px;
+    height: 40px;
+    display: grid;
+    justify-content: center;
+    padding-top: 600px;
+}
+
+.Podium_text_children {
+    width: 140px;
+    height: 10px;
+    text-align: center;
+}
+
+.second_row{
+    grid-row: 2;
+    color: greenyellow;
+    font-size: 12pt;
+}
+
+#First_place_text {
+    Color: cyan;
+    font-size: 16pt;
+}
+#Second_place_text{
+    Color: gold;
+    font-size: 14pt;
+}
+#Third_place_text{
+    Color: #B87333;
+    font-size: 14pt;
+}
+.The_rest{
+    text-align: center;
+    font-size: 16pt;
+
+}
