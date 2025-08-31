@@ -1,6 +1,10 @@
 const fetch = (url, init) => import('node-fetch').then(module => module.default(url, init));
 const express = require('express');
+const mcs = require('node-mcstatus');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+const db = require('./database.js');
 
 const app = express();
 const port = 3000;
@@ -35,35 +39,53 @@ app.get('/api/geyser/:username', async (req, res) => {
     }
 });
 
-app.get('/api/creepernation/:uuid', async (req, res) => {
-    try {
-        const uuid = req.params.uuid;
-        // The actual API we are fetching from on the server-side
-        const apiUrl = `https://api.creepernation.net/player/${uuid}`;
+// app.get('/api/creepernation/:uuid', async (req, res) => {
+//     try {
+//         const uuid = req.params.uuid;
+//         // The actual API we are fetching from on the server-side
+//         const apiUrl = `https://api.creepernation.net/player/${uuid}`;
         
-        console.log(`Fetching data for: ${uuid}`); // Log to terminal to see it working
+//         console.log(`Fetching data for: ${uuid}`); // Log to terminal to see it working
         
-        const apiResponse = await fetch(apiUrl);
-        if (!apiResponse.ok) {
-            // Handle cases where the API returns an error
-            throw new Error(`GeyserMC API returned status: ${apiResponse.status}`);
-        }
-        const data = await apiResponse.text();
+//         const apiResponse = await fetch(apiUrl);
+//         if (!apiResponse.ok) {
+//             // Handle cases where the API returns an error
+//             throw new Error(`GeyserMC API returned status: ${apiResponse.status}`);
+//         }
+//         const data = await apiResponse.text();
         
-        // Send the data back to your frontend
-        // res.json(data);
-        // res.json({result: data});
-        res.setHeader('content-type', 'image/png');
-        res.send()
-    } catch (error) {
-        console.error('Proxy Error:', error);
-        res.status(500).json({ error: 'OOgaBooga' });
+//         // Send the data back to your frontend
+//         // res.json(data);
+//         // res.json({result: data});
+//         res.setHeader('content-type', 'image/png');
+//         res.send()
+//     } catch (error) {
+//         console.error('Proxy Error:', error);
+//         res.status(500).json({ error: 'OOgaBooga' });
+//     }
+// });
+
+//this is the endpoint for checking the server status
+app.get('/api/mc-status', (req, res) => {
+    //These values are to be given on the frontend
+    const host = req.query.host
+    const port = 25565
+    
+    if (!host) {
+        return res.status(400).json({ error: 'Host query parameter is required.' });
     }
+
+    mcs.statusJava(host, port)
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((error) => {
+            console.error(`Failed to get status for ${host}:`, error);
+            res.status(500).json({ error: 'Failed to fetch status' });
+        });
 });
 
-// You can add more proxy endpoints here for other APIs
-// For example, for the CreeperNation API:
-// app.get('/api/creepernation/:uuid', async (req, res) => { ... });
+
 
 app.listen(port, () => {
     console.log(`✅ Proxy server is running at http://localhost:${port}`);
