@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // If not in db then fertch from the geyser api
                 return fetch(`http://localhost:3000/api/geyser/${username}`).then(res => res.json());
             })
+            //data.uuid would be if it is receiving it from our db and data.id would be directly from geyser before being cached to the db
             .then(data => {
                 const id = data.uuid || data.id;
                 document.getElementById(imageId).src = `http://localhost:3000/api/creepernation/${id}?username=${username}`;

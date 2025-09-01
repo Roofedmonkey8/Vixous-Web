@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const host = 'tired.is.gae.jcfbd.com';
+    const host = 'a48a514a.play.servcity.org';
     const statusApi = `http://localhost:3000/api/mc-status?host=${host}`;
     const serverStatus = document.getElementById('server-status');
+    const statsApiUrl = 'http://62.72.177.7:18724/stats.json'
 
     // https://mcstatus.io/docs#java-status
     fetch(statusApi)
@@ -24,67 +25,95 @@ document.addEventListener('DOMContentLoaded', () => {
             // Receiving an error here means that there
             // was an error with the service itself.
         })
-    function updateServerStats() {
-        fetch(statsApiUrl)
-            .then(response => {
+    // function updateServerStats() {
+    //     fetch(statsApiUrl)
+    //         .then(response => {
 
-                const serverStatusElement = document.getElementById('server-status');
+    //             const serverStatusElement = document.getElementById('server-status');
+    //             const playerCountElement = document.getElementById('player-count');
+    //             const playerListElement = document.getElementById('player-list');
+    
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //         })
+    //         .then(data => {
+    //             playerCountElement = document.getElementById('player-count');
+    //             playerListElement = document.getElementById('player-list');
+
+    //             playerListElement.innerHTML = '';
+                
+    //             // Takes playercount from json data
+    //             const onlinePlayers = data.online ? Object.keys(data.online).length : 0;
+    //             const maxPlayers = '30';
+                
+    //             playerCountElement.textContent = `${onlinePlayers}/${maxPlayers}`;
+    //             if (onlinePlayers > 0) {
+    //                 // This loop will only run if there is at least one player online.
+    //                 for (const player in data.online) {
+    //                     if (data.online[player] === true) {
+    //                         const playerNameElement = document.createElement('p');
+    //                         playerNameElement.textContent = player;
+    //                         playerListElement.appendChild(playerNameElement);
+    //                     } else if (data.online[player] === 'afk') {
+    //                         const playerNameAfkElement = document.createElement('p');
+    //                         playerNameAfkElement.textContent = player + ' (AFK)';
+    //                         playerNameAfkElement.style.color = 'gray'; 
+    //                         playerListElement.appendChild(playerNameAfkElement);
+    //                     }
+    //                 }
+    //             } else {
+    //                 const noPlayersElement = document.createElement('p');
+    //                 noPlayersElement.textContent = 'No one is online.';
+    //                 playerListElement.appendChild(noPlayersElement);
+    //             }
+    //         })
+    //         .catch(error => {
+    //             // if it fails to get the data for any reason the script assumes the server is offline
+    //             console.error("Failed to fetch server data:", error);
+    //             const serverStatusElement = document.getElementById('server-status');
+    //             const playerCountElement = document.getElementById('player-count');
+                
+    //             serverStatusElement.textContent = 'Server is Offline';
+    //             serverStatusElement.style.color = '#FF4500';
+    //             playerCountElement.textContent = '';
+    //             playerListElement.innerHTML = '';
+    //         });
+    // }
+            
+    updateServerStats();
+    setInterval(updateServerStats, 15000);
+
+    function updateServerStats(){
+        fetch(statsApiUrl)
+            .then(res => res.json())
+            .then(data => {
+                const serverStatus = document.getElementById('server-status');
                 const playerCountElement = document.getElementById('player-count');
                 const playerListElement = document.getElementById('player-list');
-    
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-            })
-            .then(data => {
-                playerCountElement = document.getElementById('player-count');
-                playerListElement = document.getElementById('player-list');
+                const playerlist = Object.keys(data.online)
+                const playeractiviylist = Object.values(data.online)
+                const playerlistlength = playerlist.length
+                // console.log("Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
-                playerListElement.innerHTML = '';
-                
-                // Takes playercount from json data
-                const onlinePlayers = data.online ? Object.keys(data.online).length : 0;
-                const maxPlayers = '30';
-                
-                playerCountElement.textContent = `${onlinePlayers}/${maxPlayers}`;
-                
-                if (onlinePlayers > 0) {
-                    // This loop will only run if there is at least one player online.
-                    for (const player in data.online) {
-                        if (data.online[player] === true) {
-                            const playerNameElement = document.createElement('p');
-                            playerNameElement.textContent = player;
-                            playerListElement.appendChild(playerNameElement);
-                        } else if (data.online[player] === 'afk') {
-                            const playerNameAfkElement = document.createElement('p');
-                            playerNameAfkElement.textContent = player + ' (AFK)';
-                            playerNameAfkElement.style.color = 'gray'; 
-                            playerListElement.appendChild(playerNameAfkElement);
-                        }
+                if (playerlistlength == 0){
+                    serverStatus.textContent = "Nobody is on Rn"
+                    serverStatus.style.color = "red"
+                } else if (playerlistlength > 0) {
+                    playerCountElement.textContent = playerlistlength + "/" + 30
+                    playerListElement.replaceChildren()
+                    for (var i = 0; i < playerlistlength; i++){
+                        const PlayerEntry = document.createElement('p');
+                        playerListElement.appendChild(PlayerEntry);
+                        PlayerEntry.textContent = playerlist[i]
+                        if(playeractiviylist[i] !== true){
+                            PlayerEntry.textContent += " [AFK]"
+                            PlayerEntry.style.color = 'gray'
+                        }   
                     }
-                } else {
-                    const noPlayersElement = document.createElement('p');
-                    noPlayersElement.textContent = 'No one is online.';
-                    playerListElement.appendChild(noPlayersElement);
                 }
             })
-            .catch(error => {
-                // if it fails to get the data for any reason the script assumes the server is offline
-                console.error("Failed to fetch server data:", error);
-                const serverStatusElement = document.getElementById('server-status');
-                const playerCountElement = document.getElementById('player-count');
-                
-                serverStatusElement.textContent = 'Server is Offline';
-                serverStatusElement.style.color = '#FF4500';
-                playerCountElement.textContent = '';
-                playerListElement.innerHTML = '';
-            });
     }
-            
-    // updateServerStats();
-    // setInterval(updateServerStats, 15000);
-
-    
 });
             
             

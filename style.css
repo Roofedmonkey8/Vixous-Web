@@ -14,12 +14,12 @@ body {
 
 .leaderboard {
     background-color: #222;
-    border: 1px solid #444;
-    padding: 20px;
+    border: 1.25px solid #00ff08;
+    padding: 2vh;
     border-radius: 8px;
     text-align: left;
-    max-width: 400px;
-    margin: 20px auto;
+    max-width: 21vw;
+    /* margin: 20px auto; */
 }
 
 .leaderboard-title {
@@ -31,50 +31,52 @@ body {
 
 .leaderboard-subtitle {
     color: #AAAAAA; 
-    margin: 0 0 15px 0;
+    margin: 0 0 1.5vh 0;
     text-align: center;
 }
 
 #Podium_Container{
-    width: 400px;
-    height: 650px;
+    width: 21vw;
+    height: 65vh;
 }
 
 #podium {
-    width: 400px;
+    width: 21vw;
     position: absolute;
-    margin-top: 220px;
+    margin-top: 18vh;
 }
 
 #First_place_baltop {
     position: absolute;
-    width: 110px;
-    padding-left: 146px;
+    width: 6vw;
+    padding-left: 7.604vw;
 }
+
 #Second_place_baltop {
     position: absolute;
-    width: 110px;
-    padding-left: 30px;
-    padding-top: 226px;
+    width: 6vw;
+    padding-left: 1.563vw;
+    padding-top: 22.6vh;
 }
+
 #Third_place_baltop {
     position: absolute;
-    width: 110px;
-    padding-left: 262px;
-    padding-top: 106px;
+    width: 6vw;
+    padding-left: 13.646vw;
+    padding-top: 10.6vh;
 }
 
 #podium_text_flex_box{
-    width: 400px;
-    height: 40px;
+    width: 21vw;
+    height: 4vh;
     display: grid;
     justify-content: center;
-    padding-top: 600px;
+    padding-top: 60vh;
 }
 
 .Podium_text_children {
-    width: 140px;
-    height: 10px;
+    width: 7.292vw;
+    height: 1vh;
     text-align: center;
 }
 
@@ -88,16 +90,26 @@ body {
     Color: cyan;
     font-size: 16pt;
 }
+
 #Second_place_text{
     Color: gold;
     font-size: 14pt;
 }
+
 #Third_place_text{
     Color: #B87333;
     font-size: 14pt;
 }
+
 .The_rest{
     text-align: center;
     font-size: 16pt;
 
+}
+
+#leaderboards{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
 }

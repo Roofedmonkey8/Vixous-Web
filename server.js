@@ -65,7 +65,7 @@ app.get('/api/geyser/:username', async (req, res) => {
     }
 });
 
-// This endpoint for fetching skins remains the same
+// This endpoint for fetching skins
 app.get('/api/creepernation/:uuid', async (req, res) => {
     try {
         const { uuid } = req.params;
