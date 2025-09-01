@@ -1,11 +1,20 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./player_skins.db');
+const db = new sqlite3.Database('./player_data.db');
 
 db.serialize(() => {
+    //this stores the username and uuid of players after fetched from geyser api
+    db.run(`
+        CREATE TABLE IF NOT EXISTS players (
+            username TEXT PRIMARY KEY,
+            uuid TEXT NOT NULL,
+            last_checked INTEGER NOT NULL
+        )
+    `);
+
+    //this db stores all of our player skins
     db.run(`
         CREATE TABLE IF NOT EXISTS skins (
             uuid TEXT PRIMARY KEY,
-            username TEXT NOT NULL,
             image_path TEXT NOT NULL,
             last_updated INTEGER NOT NULL
         )
