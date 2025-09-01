@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Minecraft';
-    src: url('/Fonts/minecraft-font/MinecraftRegular-Bmg3.otf');
+    src: url('/Fonts/IThinkImTurningJapanese-m2K2.ttf');
     font-weight: normal;
     font-style: normal;
 }
@@ -15,10 +15,10 @@ body {
 .leaderboard {
     background-color: #222;
     border: 1.25px solid #00ff08;
-    padding: 2vh;
+    /* padding: 2vh; */
     border-radius: 8px;
-    text-align: left;
-    max-width: 21vw;
+    max-width: 25vw;
+    height: 250vh;
     /* margin: 20px auto; */
 }
 
@@ -36,34 +36,53 @@ body {
 }
 
 #Podium_Container{
-    width: 21vw;
-    height: 65vh;
+    position: relative;
+    width: 25vw;
+    height: 50vh;
+    display: grid;
+    justify-content: center;
+    align-items: end;
+    margin-top: 30vh;
 }
 
 #podium {
-    width: 21vw;
-    position: absolute;
-    margin-top: 18vh;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    width: 95%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    /* transform: translate(0%, 60%); */
+    z-index: 0;
+    /* margin-top: 18vh; */
 }
 
 #First_place_baltop {
-    position: absolute;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    position: relative;
+    z-index: 1 ;
     width: 6vw;
-    padding-left: 7.604vw;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate(0,-185%);
 }
 
 #Second_place_baltop {
-    position: absolute;
+    grid-row-start: 1;
+    grid-column-start: 1;
     width: 6vw;
-    padding-left: 1.563vw;
-    padding-top: 22.6vh;
+    position: relative;
+    z-index: 1 ;
+    transform: translate(43%, -73%);
 }
 
 #Third_place_baltop {
-    position: absolute;
+    grid-row-start: 1;
+    grid-column-start: 1;
     width: 6vw;
-    padding-left: 13.646vw;
-    padding-top: 10.6vh;
+    position: relative;
+    z-index: 1 ;
+    transform: translate(270%, -133%);
 }
 
 #podium_text_flex_box{
@@ -71,7 +90,6 @@ body {
     height: 4vh;
     display: grid;
     justify-content: center;
-    padding-top: 60vh;
 }
 
 .Podium_text_children {
@@ -88,7 +106,7 @@ body {
 
 #First_place_text {
     Color: cyan;
-    font-size: 16pt;
+    font-size:55%;
 }
 
 #Second_place_text{
