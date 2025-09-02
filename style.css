@@ -27,9 +27,9 @@ body {
     /* border-radius: 8px;
     max-width: 25vw;
     height: 250vh; */
-    min-width: 400px;
-    max-width: 33vw;
-    height: 750px;
+    min-width: 450px;
+    /* max-width: 33vw; */
+    height: 900px;
     margin-top: 1dvh;
     margin-bottom: 1dvh;
     margin-left: 1dvw;
@@ -81,7 +81,7 @@ body {
 .charactermodel{
     aspect-ratio: 1 / 2;
     grid-area: 1 / 1;
-     max-height: 40%;
+    max-height: 40%;
 }
 
 #First_place_baltop {
@@ -115,16 +115,20 @@ body {
 }
 
 #podium_text_flex_box{
-    width: 21vw;
-    height: 4vh;
+    width: 95%;
     display: grid;
-    justify-content: center;
+    grid-template-columns: 5% 30% 30% 30% 5%;
+    grid-template-rows: 14pt 14pt;
 }
 
 .Podium_text_children {
-    width: 7.292vw;
-    height: 1vh;
+    width: auto;
+    height: 3vh;
     text-align: center;
+}
+
+.First_row{
+    grid-row: 1;
 }
 
 .second_row{
@@ -134,18 +138,33 @@ body {
 }
 
 #First_place_text {
+    grid-column-start: 3;
     Color: cyan;
-    font-size:55%;
+    font-size:14pt;
 }
 
 #Second_place_text{
+    grid-column-start: 4;
     Color: gold;
     font-size: 14pt;
 }
 
 #Third_place_text{
+    grid-column-start: 2;
     Color: #B87333;
     font-size: 14pt;
+}
+
+#First_place_subtext {
+    grid-column-start: 3;
+}
+
+#Second_place_subtext{
+    grid-column-start: 4;
+}
+
+#Third_place_subtext{
+    grid-column-start: 2;
 }
 
 .The_rest{

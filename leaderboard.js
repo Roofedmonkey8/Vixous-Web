@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
             everything(data)
         })
     function everything(data){
-        for(var i = 0; i < leaderboardlist.children.length; i++){
-            leaderboardlist.children[i].textContent = i+4 + "th " + data.scoreboard.scores[`top_money_${i+4}_name`]['#server'] + " $" + data.scoreboard.scores[`top_money_${i+4}_value`]['#server']
-        //I know they are magic numbers
-        //I don't care
-        //Figure it out
-        Podium.children[1].textContent = data.scoreboard.scores[`top_money_1_name`]['#server']
-        Podium.children[4].textContent = "$" + data.scoreboard.scores[`top_money_1_value`]['#server']  
-        Podium.children[2].textContent = data.scoreboard.scores[`top_money_2_name`]['#server']
-        Podium.children[5].textContent = "$" + data.scoreboard.scores[`top_money_2_value`]['#server'] 
-        Podium.children[0].textContent = data.scoreboard.scores[`top_money_3_name`]['#server']
-        Podium.children[3].textContent = "$" + data.scoreboard.scores[`top_money_3_value`]['#server'] 
+        for(var i = 0; i < leaderboardlist.children.length; i++){ 
+            leaderboardlist.children[i].textContent = i+4 + "th " + data.scoreboard.scores[`top_money_${i+4}_name`]['#server']
+            if (data.scoreboard.scores[`top_money_${i+4}_name`]['#server'] !== "None"){
+                leaderboardlist.children[i].textContent += " $" + data.scoreboard.scores[`top_money_${i+4}_value`]['#server']
+            }
         }
+        document.getElementById("First_place_text").textContent = data.scoreboard.scores[`top_money_1_name`]['#server']
+        document.getElementById("First_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_1_value`]['#server']  
+        document.getElementById("Second_place_text").textContent = data.scoreboard.scores[`top_money_2_name`]['#server']
+        document.getElementById("Second_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_2_value`]['#server'] 
+        document.getElementById("Third_place_text").textContent = data.scoreboard.scores[`top_money_3_name`]['#server']
+        document.getElementById("Third_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_3_value`]['#server'] 
         const playernames = [data.scoreboard.scores[`top_money_1_name`]["#server"],data.scoreboard.scores[`top_money_2_name`]["#server"],data.scoreboard.scores[`top_money_3_name`]["#server"]]
 
     async function getPlayerSkin(username, imageId) {
