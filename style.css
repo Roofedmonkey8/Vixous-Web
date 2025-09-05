@@ -11,6 +11,46 @@ body {
     color: white;
     font-family: Minecraft;
     text-align: center;
+    margin: 0;
+}
+
+.container {
+    width: 1440px;
+    max-width: 90%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header section.logo {
+    font-size: 27px;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin-right: 26px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: mediumvioletred;
+}
+
+header nav ul li a:hover {
+    color: cyan;
+}
+
+#top {
+    height: 72px;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.5);
 }
 
 #leaderboards{

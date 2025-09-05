@@ -42,8 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // console.log("Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
                 if (playerlistlength == 0){
-                    serverStatus.textContent = "Nobody is on Rn"
-                    serverStatus.style.color = "red"
+                    return
                 } else if (playerlistlength > 0) {
                     playerCountElement.textContent = playerlistlength + "/" + 30
                     playerListElement.replaceChildren()

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             everything(data)
+            console.log(data)
         })
     function everything(data){
         for(var i = 0; i < leaderboardlist.children.length; i++){ 
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("Second_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_2_value`]['#server'] 
         document.getElementById("Third_place_text").textContent = data.scoreboard.scores[`top_money_3_name`]['#server']
         document.getElementById("Third_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_3_value`]['#server'] 
-        const playernames = [data.scoreboard.scores[`top_money_1_name`]["#server"],data.scoreboard.scores[`top_money_2_name`]["#server"],data.scoreboard.scores[`top_money_3_name`]["#server"]]
+        const moneyPlayerNames = [data.scoreboard.scores[`top_money_1_name`]["#server"],data.scoreboard.scores[`top_money_2_name`]["#server"],data.scoreboard.scores[`top_money_3_name`]["#server"]]
 
     async function getPlayerSkin(username, imageId) {
     try {
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 }
 
-    getPlayerSkin(playernames[0], "First_place_baltop");
-    getPlayerSkin(playernames[2], "Second_place_baltop");
-    getPlayerSkin(playernames[1], "Third_place_baltop");
+    getPlayerSkin(moneyPlayerNames[0], "First_place_baltop");
+    getPlayerSkin(moneyPlayerNames[1], "Second_place_baltop");
+    getPlayerSkin(moneyPlayerNames[2], "Third_place_baltop");
 }});
