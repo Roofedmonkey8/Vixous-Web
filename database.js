@@ -19,6 +19,25 @@ db.serialize(() => {
             last_updated INTEGER NOT NULL
         )
     `);
+
+    //stores the leaderboard data 
+    // db.run(`
+    //     CREATE TABLE IF NOT EXISTS baltop (
+            
+    //     )
+    // `);
+
+    // db.run(`
+    //     CREATE TABLE IF NOT EXISTS playtop (
+            
+    //     )
+    // `);
+
+    // db.run(`
+    //     CREATE TABLE IF NOT EXISTS leveltop (
+            
+    //     )
+    // `);
 });
 
 module.exports = db;

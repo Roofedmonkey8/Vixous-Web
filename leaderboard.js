@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const statsApiUrl = 'http://62.72.177.7:18724/stats.json'
-    var leaderboardlist = document.getElementById("leaderboard-list")
+    const statsApiUrl = 'http://localhost:3000/api/leaderboard'
+   
     var Podium = document.getElementById("podium_text_flex_box")
     fetch(statsApiUrl)
         .then(res => res.json())
@@ -9,48 +9,62 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(data)
         })
     function everything(data){
-        for(var i = 0; i < leaderboardlist.children.length; i++){ 
-            leaderboardlist.children[i].textContent = i+4 + "th " + data.scoreboard.scores[`top_money_${i+4}_name`]['#server']
-            if (data.scoreboard.scores[`top_money_${i+4}_name`]['#server'] !== "None"){
-                leaderboardlist.children[i].textContent += " $" + data.scoreboard.scores[`top_money_${i+4}_value`]['#server']
+        categories = ["money", "level", "time"]
+        const places = ["first", "second", "third"]
+        categories.forEach(category => {
+            var leaderboardlist = document.getElementById(`${category}LeaderboardRunnerUp`)
+            for(let i = 0; i < leaderboardlist.children.length; i++){ 
+            leaderboardlist.children[i].textContent = i+4 + "th " + data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server']
+            if (data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server'] !== "None"){
+                leaderboardlist.children[i].textContent += " $" + data.scoreboard.scores[`top_${category}_${i+4}_value`]['#server']
             }
-        }
-        document.getElementById("First_place_text").textContent = data.scoreboard.scores[`top_money_1_name`]['#server']
-        document.getElementById("First_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_1_value`]['#server']  
-        document.getElementById("Second_place_text").textContent = data.scoreboard.scores[`top_money_2_name`]['#server']
-        document.getElementById("Second_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_2_value`]['#server'] 
-        document.getElementById("Third_place_text").textContent = data.scoreboard.scores[`top_money_3_name`]['#server']
-        document.getElementById("Third_place_subtext").textContent = "$" + data.scoreboard.scores[`top_money_3_value`]['#server'] 
-        const moneyPlayerNames = [data.scoreboard.scores[`top_money_1_name`]["#server"],data.scoreboard.scores[`top_money_2_name`]["#server"],data.scoreboard.scores[`top_money_3_name`]["#server"]]
+
+             for(let i = 0; i < places.length; i++) {
+                const position = i+1;
+                const place = places[i];
+                const key = `top_${category}_${position}_name`
+                const vKey = `top_${category}_${position}_value`
+                const playerName = data.scoreboard.scores[key]["#server"]
+                const imageId = `${category}_${place}_place_skin`
+                // console.log("key: " + key);
+                // console.log("playername: " + playerName);
+                // console.log("image id: " + imageId)
+                if (category )
+                document.getElementById(`${category}_${place}_place_text`).textContent = data.scoreboard.scores[key]['#server']
+                document.getElementById(`${category}_${place}_place_subtext`).textContent = "$" + data.scoreboard.scores[vKey]['#server']
+                
+                if (playerName && playerName != "None") {
+                     getPlayerSkin(playerName, imageId)
+                }            
+            }
+        };
+    });
+
 
     async function getPlayerSkin(username, imageId) {
-    try {
-        let uuid;
+        try {
+            let uuid;
 
-        // check db for uuid
-        const cachedRes = await fetch(`http://localhost:3000/api/uuid/${username}`);
+            // check db for uuid
+            const cachedRes = await fetch(`http://localhost:3000/api/uuid/${username}`);
 
-        if (cachedRes.ok) {
-            const data = await cachedRes.json();
-            uuid = data.uuid;
-        } else {
-            // if not in db fetch from geyser
-            console.log(`UUID for ${username} not found in cache. Fetching from GeyserMC.`);
-            const geyserRes = await fetch(`http://localhost:3000/api/geyser/${username}`);
-            const geyserData = await geyserRes.json();
-            uuid = geyserData.id;
+            if (cachedRes.ok) {
+                const data = await cachedRes.json();
+                uuid = data.uuid;
+            } else {
+                // if not in db fetch from geyser
+                console.log(`UUID for ${username} not found in cache. Fetching from GeyserMC.`);
+                const geyserRes = await fetch(`http://localhost:3000/api/geyser/${username}`);
+                const geyserData = await geyserRes.json();
+                uuid = geyserData.id;
+            }
+
+            // get skin from creepernation api
+            if (uuid) {
+                document.getElementById(imageId).src = `http://localhost:3000/api/creepernation/${uuid}?username=${username}`;
+            }
+        } catch (error) {
+            console.error(`Failed to get skin for ${username}:`, error);
         }
-
-        // get skin from creepernation api
-        if (uuid) {
-            document.getElementById(imageId).src = `http://localhost:3000/api/creepernation/${uuid}?username=${username}`;
-        }
-    } catch (error) {
-        console.error(`Failed to get skin for ${username}:`, error);
-    }
-}
-
-    getPlayerSkin(moneyPlayerNames[0], "First_place_baltop");
-    getPlayerSkin(moneyPlayerNames[1], "Second_place_baltop");
-    getPlayerSkin(moneyPlayerNames[2], "Third_place_baltop");
+    }    
 }});

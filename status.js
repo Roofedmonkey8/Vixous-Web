@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const host = 'a48a514a.play.servcity.org';
     const statusApi = `http://localhost:3000/api/mc-status?host=${host}`;
     const serverStatus = document.getElementById('server-status');
-    const statsApiUrl = 'http://62.72.177.7:18724/stats.json'
+    const statsApiUrl = 'http://localhost:3000/api/leaderboard'
 
     // https://mcstatus.io/docs#java-status
     fetch(statusApi)

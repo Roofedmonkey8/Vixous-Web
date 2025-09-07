@@ -124,7 +124,7 @@ header nav ul li a:hover {
     max-height: 40%;
 }
 
-#First_place_baltop {
+.First_skin {
     /* grid-row-start: 1;
     grid-column-start: 1;
     position: relative;
@@ -136,7 +136,7 @@ header nav ul li a:hover {
     transform: translate(0, -75%);
 }
 
-#Second_place_baltop {
+.Second_skin {
     /* grid-row-start: 1;
     grid-column-start: 1;
     width: 6vw;
@@ -145,7 +145,7 @@ header nav ul li a:hover {
     transform: translate(97%, -32%);
 }
 
-#Third_place_baltop {
+.Third_skin {
     /* grid-row-start: 1;
     grid-column-start: 1;
     width: 6vw;
@@ -177,38 +177,39 @@ header nav ul li a:hover {
     font-size: 12pt;
 }
 
-#First_place_text {
+.First_place_text {
     grid-column-start: 3;
     Color: cyan;
     font-size:14pt;
 }
 
-#Second_place_text{
+.Second_place_text{
     grid-column-start: 4;
     Color: gold;
     font-size: 14pt;
 }
 
-#Third_place_text{
+.Third_place_text{
     grid-column-start: 2;
     Color: #B87333;
     font-size: 14pt;
 }
 
-#First_place_subtext {
+.First_place_subtext {
     grid-column-start: 3;
 }
 
-#Second_place_subtext{
+.Second_place_subtext{
     grid-column-start: 4;
 }
 
-#Third_place_subtext{
+.Third_place_subtext{
     grid-column-start: 2;
 }
 
-.The_rest{
+.the_rest{
     text-align: center;
-    font-size: 16pt;
-
+    font-size: 14pt;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }

@@ -2,15 +2,14 @@ const fetch = (url, init) => import('node-fetch').then(module => module.default(
 const express = require('express');
 const mcs = require('node-mcstatus');
 const cors = require('cors');
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 const db = require('./database.js');
 
 const app = express();
 const port = 3000;
 const SKIN_CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
-
-console.log('yes', typeof fetch)
+const PLAYER_DATA_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in millivanillyseconds
 
 app.use(cors({
     origin: "*",
@@ -33,7 +32,7 @@ app.get('/api/uuid/:username', (req, res) => {
     });
 });
 
-// This endpoint now fetches from GeyserMC and caches the result
+// This endpoint now fetches from GeyserMC and caches the result 
 app.get('/api/geyser/:username', async (req, res) => {
     try {
         const username = req.params.username;
@@ -93,7 +92,7 @@ app.get('/api/creepernation/:uuid', async (req, res) => {
                 }
 
                 const buffer = await apiResponse.arrayBuffer();
-                fs.writeFileSync(skinPath, Buffer.from(buffer));
+                await fs.writeFile(skinPath, Buffer.from(buffer));
 
                 const lastUpdated = Date.now();
                 db.run(
@@ -115,7 +114,6 @@ app.get('/api/creepernation/:uuid', async (req, res) => {
     }
 });
 
-
 app.get('/api/mc-status', (req, res) => {
     const host = req.query.host
     const port = 25565
@@ -134,7 +132,48 @@ app.get('/api/mc-status', (req, res) => {
         });
 });
 
+app.get('/api/leaderboard', async (req, res) => {
+    const cachePath = path.join(__dirname, 'cache', 'leaderboard.json');
+    let cachedFile = null;
 
+    try {
+        cachedFile = {
+            content: await fs.readFile(cachePath, 'utf8'),
+            stats: await fs.stat(cachePath)
+        };
+    } catch (e) {
+        console.log('No cache file found fetch from api.');
+    }
+
+    if (cachedFile && (Date.now() - cachedFile.stats.mtimeMs) < PLAYER_DATA_CACHE_DURATION) {
+        console.log('Pulling from local file');
+        return res.json(JSON.parse(cachedFile.content));
+    }
+
+    try {
+        const apiResponse = await fetch('http://62.72.177.7:18724/stats.json');
+        if (!apiResponse.ok) {
+            throw new Error(`API returned status: ${apiResponse.status}`);
+        }
+
+        const apiData = await apiResponse.json();
+        
+        await fs.writeFile(cachePath, JSON.stringify(apiData, null, 2));
+        console.log('Successfully fetched from api');
+        return res.json(apiData);
+
+    } catch (fetchError) {
+        console.error('could not fetch from api', fetchError.message);
+        
+        if (cachedFile) {
+            console.log('Using local file');
+            return res.json(JSON.parse(cachedFile.content));
+        }
+
+        console.error('Failed api fetch and no file found');
+        return res.status(500).json({ error: 'Failed to retrieve leaderboard data.' });
+    }
+});
 
 app.listen(port, () => {
     console.log(`✅ Proxy server is running at http://localhost:${port}`);
