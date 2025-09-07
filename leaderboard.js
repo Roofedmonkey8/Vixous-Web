@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             leaderboardlist.children[i].textContent = i+4 + "th " + data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server']
             if (data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server'] !== "None"){
                 leaderboardlist.children[i].textContent += " $" + data.scoreboard.scores[`top_${category}_${i+4}_value`]['#server']
+            } else {
+                leaderboardlist.children[i].textContent += " $" + data.scoreboard.scores[`top_${category}_${i+4}_value`]['#server']
             }
 
              for(let i = 0; i < places.length; i++) {
@@ -29,10 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // console.log("key: " + key);
                 // console.log("playername: " + playerName);
                 // console.log("image id: " + imageId)
-                if (category )
-                document.getElementById(`${category}_${place}_place_text`).textContent = data.scoreboard.scores[key]['#server']
-                document.getElementById(`${category}_${place}_place_subtext`).textContent = "$" + data.scoreboard.scores[vKey]['#server']
-                
+                if (category === "level") {
+                    document.getElementById(`${category}_${place}_place_text`).textContent = data.scoreboard.scores[key]['#server']
+                    document.getElementById(`${category}_${place}_place_subtext`).textContent = "Level: " + data.scoreboard.scores[vKey]['#server']
+                } else if (category === "time"){
+                    document.getElementById(`${category}_${place}_place_text`).textContent = data.scoreboard.scores[key]['#server']
+                    document.getElementById(`${category}_${place}_place_subtext`).textContent = data.scoreboard.scores[vKey]['#server']
+                } else {
+                    document.getElementById(`${category}_${place}_place_text`).textContent = data.scoreboard.scores[key]['#server']
+                    document.getElementById(`${category}_${place}_place_subtext`).textContent = "$" + data.scoreboard.scores[vKey]['#server']
+                }
+
                 if (playerName && playerName != "None") {
                      getPlayerSkin(playerName, imageId)
                 }            

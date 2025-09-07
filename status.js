@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // console.log("Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
                 if (playerlistlength == 0){
-                    return
+                    playerCountElement.textContent = "Players: " + playerlistlength + "/" + 30
                 } else if (playerlistlength > 0) {
-                    playerCountElement.textContent = playerlistlength + "/" + 30
+                    playerCountElement.textContent = "Players: " + playerlistlength + "/" + 30
                     playerListElement.replaceChildren()
                     for (var i = 0; i < playerlistlength; i++){
                         const PlayerEntry = document.createElement('p');

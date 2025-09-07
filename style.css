@@ -210,6 +210,31 @@ header nav ul li a:hover {
 .the_rest{
     text-align: center;
     font-size: 14pt;
-    margin-top: 7px;
-    margin-bottom: 7px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#player-count {
+    font-size: 15pt;
+}
+
+#player-list {
+    background-color: rgba(0, 0, 0, 0.5); 
+    /* padding: 5px;                        */
+    border-radius: 8px;                  
+    /* margin-top: 20px;                     */
+    overflow-y: auto;
+    /* max-width: 10vw; */
+    text-align: center;
+    
+}
+
+#server-status {
+    font-size: 40pt;
+}
+
+.hero {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
