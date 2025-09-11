@@ -1,7 +1,5 @@
 {
-  "online": {
-    "roofedmonky8": true
-  },
+  "online": {},
   "scoreboard": {
     "entries": [
       "roofedmonky8",
@@ -77,10 +75,10 @@
         "#server": "0"
       },
       "top_money_2_value": {
-        "#server": "75,610"
+        "#server": "85,000"
       },
       "top_money_4_name": {
-        "#server": "roofedmonky8"
+        "#server": "VGTiredAF"
       },
       "top_blocks_6_name": {
         "#server": "None"
@@ -131,7 +129,7 @@
         "#server": "None"
       },
       "top_time_3_value": {
-        "#server": "8h 12m 57s"
+        "#server": "8h 49m 36s"
       },
       "top_tokens_6_value": {
         "#server": "0"
@@ -188,7 +186,7 @@
         "#server": "None"
       },
       "top_money_3_name": {
-        "#server": "VGTiredAF"
+        "#server": "Xqedii"
       },
       "top_level_4_name": {
         "#server": "Xqedii"
@@ -212,7 +210,7 @@
         "#server": "None"
       },
       "top_money_3_value": {
-        "#server": "36,818"
+        "#server": "75,610"
       },
       "top_blocks_2_name": {
         "#server": "roofedmonky8"
@@ -239,7 +237,7 @@
         "#server": "None"
       },
       "top_time_4_value": {
-        "#server": "1h 8m 59s"
+        "#server": "8h 12m 57s"
       },
       "top_time_2_name": {
         "#server": "Xqedii"
@@ -251,13 +249,13 @@
         "#server": "None"
       },
       "top_money_4_value": {
-        "#server": "10,000"
+        "#server": "36,818"
       },
       "top_time_10_name": {
         "#server": "None"
       },
       "top_tokens_1_value": {
-        "#server": "5,830"
+        "#server": "5,905"
       },
       "top_money_1_name": {
         "#server": "roofedmonky8"
@@ -278,7 +276,7 @@
         "#server": "0"
       },
       "top_time_3_name": {
-        "#server": "VGTiredAF"
+        "#server": "roofedmonky8"
       },
       "top_money_6_value": {
         "#server": "0"
@@ -299,13 +297,13 @@
         "#server": "256"
       },
       "top_money_2_name": {
-        "#server": "Xqedii"
+        "#server": "roofedmonky8"
       },
       "top_tokens_7_name": {
         "#server": "None"
       },
       "top_time_4_name": {
-        "#server": "roofedmonky8"
+        "#server": "VGTiredAF"
       },
       "top_blocks_5_value": {
         "#server": "0"

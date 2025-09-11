@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(statsApiUrl)
             .then(res => res.json())
             .then(data => {
-                const serverStatus = document.getElementById('server-status');
+                // const serverStatus = document.getElementById('server-status');
                 const playerCountElement = document.getElementById('player-count');
                 const playerListElement = document.getElementById('player-list');
                 const playerlist = Object.keys(data.online)
