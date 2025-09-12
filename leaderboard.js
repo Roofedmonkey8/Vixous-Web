@@ -6,47 +6,67 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             everything(data)
-            console.log(data)
+            // console.log(data)
         })
     function everything(data){
-        const categories = ["money", "level", "time"]
-        const places = ["first", "second", "third"]
-        console.log(typeof(data))
-        categories.forEach(category => {
-            let leaderboardlist = document.getElementById(`${category}LeaderboardRunnerUp`)
-            for(let i = 0; i < leaderboardlist.children.length; i++){ 
-            // leaderboardlist.children[i].textContent = i+4 + "th " + data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server']
-            if (data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server'] !== "None"){
-                leaderboardlist.children[i].textContent += i+4 + "th " + " $" + data.scoreboard.scores[`top_${category}_${i+4}_value`]['#server']
-            } else {
-                leaderboardlist.children[i].textContent += i+4 + "th " + "---"
-            }
+        // const categories = ["money", "level", "time"]
+        // const places = ["first", "second", "third"]
+        // console.log(typeof(data))
+        // categories.forEach(category => {
+        //     let leaderboardlist = document.getElementById(`${category}LeaderboardRunnerUp`)
+        //     for(let i = 0; i < leaderboardlist.children.length; i++){ 
+        //     // leaderboardlist.children[i].textContent = i+4 + "th " + data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server']
+        //     if (data.scoreboard.scores[`top_${category}_${i+4}_name`]['#server'] !== "None"){
+        //         leaderboardlist.children[i].textContent += i+4 + "th " + " $" + data.scoreboard.scores[`top_${category}_${i+4}_value`]['#server']
+        //     } else {
+        //         leaderboardlist.children[i].textContent += i+4 + "th " + "---"
+        //     }
 
-             for(let i = 0; i < places.length; i++) {
-                const position = i+1;
-                const place = places[i];
-                const key = `top_${category}_${position}_name`
-                const vKey = `top_${category}_${position}_value`
-                const playerName = data.scoreboard.scores[key]["#server"]
-                const imageId = `${category}_${place}_place_skin`
+        //      for(let i = 0; i < places.length; i++) {
+        //         const position = i+1;
+        //         const place = places[i];
+        //         const key = `top_${category}_${position}_name`
+        //         const vKey = `top_${category}_${position}_value`
+        //         const playerName = data.scoreboard.scores[key]["#server"]
+        //         const imageId = `${category}_${place}_place_skin`
 
-                if (category === "level") {
-                    document.getElementById(`${category}_${place}_place_text`).textContent = playerName
-                    document.getElementById(`${category}_${place}_place_subtext`).textContent = "Level: " + data.scoreboard.scores[vKey]['#server']
-                } else if (category === "time"){
-                    document.getElementById(`${category}_${place}_place_text`).textContent = playerName
-                    document.getElementById(`${category}_${place}_place_subtext`).textContent = data.scoreboard.scores[vKey]['#server']
-                } else {
-                    document.getElementById(`${category}_${place}_place_text`).textContent = playerName
-                    document.getElementById(`${category}_${place}_place_subtext`).textContent = "$" + data.scoreboard.scores[vKey]['#server']
+        //         if (category === "level") {
+        //             document.getElementById(`${category}_${place}_place_text`).textContent = playerName
+        //             document.getElementById(`${category}_${place}_place_subtext`).textContent = "Level: " + data.scoreboard.scores[vKey]['#server']
+        //         } else if (category === "time"){
+        //             document.getElementById(`${category}_${place}_place_text`).textContent = playerName
+        //             document.getElementById(`${category}_${place}_place_subtext`).textContent = data.scoreboard.scores[vKey]['#server']
+        //         } else {
+        //             document.getElementById(`${category}_${place}_place_text`).textContent = playerName
+        //             document.getElementById(`${category}_${place}_place_subtext`).textContent = "$" + data.scoreboard.scores[vKey]['#server']
+        //         }
+
+        //         if (playerName && playerName != "None") {
+        //              getPlayerSkin(playerName, imageId)
+        //         }            
+        //     }
+        // };
+        const testResponse = 
+        fetch('http://127.0.0.1:3000/api/leaderboard')
+        .then(res => res.json())
+        .then(namedata => {
+            let vbame = document.getElementsByClassName("Bame")
+            let vbalue = document.getElementsByClassName("balue")
+            for(let i = 0; i < vbame.length; i++){
+                if (namedata[i]["name"] !== "None"){
+                    vbame[i].textContent += namedata[i]["name"]
+                }else {
+                    vbame[i].textContent += "---"
                 }
-
-                if (playerName && playerName != "None") {
-                     getPlayerSkin(playerName, imageId)
-                }            
             }
-        };
-    });
+            for(let i = 0; i < vbalue.length; i++){
+                if (namedata[i]["value"] !== "0"){
+                    vbalue[i].textContent += " $" + namedata[i]["value"]
+                }
+            }
+        })
+        // const test = testResponse.json();
+    };
 
 
     async function getPlayerSkin(username, imageId) {
@@ -75,4 +95,4 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Failed to get skin for ${username}:`, error);
         }
     }    
-}});
+});

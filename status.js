@@ -26,38 +26,38 @@ document.addEventListener('DOMContentLoaded', () => {
             // was an error with the service itself.
         })
             
-    updateServerStats();
-    setInterval(updateServerStats, 15000);
+    // updateServerStats();
+    // setInterval(updateServerStats, 15000);
 
-    function updateServerStats(){
-        fetch(statsApiUrl)
-            .then(res => res.json())
-            .then(data => {
-                // const serverStatus = document.getElementById('server-status');
-                const playerCountElement = document.getElementById('player-count');
-                const playerListElement = document.getElementById('player-list');
-                const playerlist = Object.keys(data.online)
-                const playeractiviylist = Object.values(data.online)
-                const playerlistlength = playerlist.length
-                // console.log("Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    // function updateServerStats(){
+    //     fetch(statsApiUrl)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             // const serverStatus = document.getElementById('server-status');
+    //             const playerCountElement = document.getElementById('player-count');
+    //             const playerListElement = document.getElementById('player-list');
+    //             const playerlist = Object.keys(data.online)
+    //             const playeractiviylist = Object.values(data.online)
+    //             const playerlistlength = playerlist.length
+    //             // console.log("Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
-                if (playerlistlength == 0){
-                    playerCountElement.textContent = "Players: " + playerlistlength + "/" + 30
-                } else if (playerlistlength > 0) {
-                    playerCountElement.textContent = "Players: " + playerlistlength + "/" + 30
-                    playerListElement.replaceChildren()
-                    for (var i = 0; i < playerlistlength; i++){
-                        const PlayerEntry = document.createElement('p');
-                        playerListElement.appendChild(PlayerEntry);
-                        PlayerEntry.textContent = playerlist[i]
-                        if(playeractiviylist[i] !== true){
-                            PlayerEntry.textContent += " [AFK]"
-                            PlayerEntry.style.color = 'gray'
-                        }   
-                    }
-                }
-            })
-    }
+    //             if (playerlistlength == 0){
+    //                 playerCountElement.textContent = "Players: " + playerlistlength + "/" + 30
+    //             } else if (playerlistlength > 0) {
+    //                 playerCountElement.textContent = "Players: " + playerlistlength + "/" + 30
+    //                 playerListElement.replaceChildren()
+    //                 for (var i = 0; i < playerlistlength; i++){
+    //                     const PlayerEntry = document.createElement('p');
+    //                     playerListElement.appendChild(PlayerEntry);
+    //                     PlayerEntry.textContent = playerlist[i]
+    //                     if(playeractiviylist[i] !== true){
+    //                         PlayerEntry.textContent += " [AFK]"
+    //                         PlayerEntry.style.color = 'gray'
+    //                     }   
+    //                 }
+    //             }
+    //         })
+    // }
 });
             
             

@@ -20,12 +20,14 @@ db.serialize(() => {
         )
     `);
 
-    //stores the leaderboard data 
-    // db.run(`
-    //     CREATE TABLE IF NOT EXISTS baltop (
-            
-    //     )
-    // `);
+    // stores the leaderboard data 
+    db.run(`
+        CREATE TABLE IF NOT EXISTS baltop (
+            id INTEGER,
+            name TEXT,
+            value TEXT
+        )
+    `);
 
     // db.run(`
     //     CREATE TABLE IF NOT EXISTS playtop (

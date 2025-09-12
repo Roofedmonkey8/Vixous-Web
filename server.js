@@ -132,48 +132,43 @@ app.get('/api/mc-status', (req, res) => {
         });
 });
 
+
+// const leaderboards = {
+//     'baltop'
+// }
+
 app.get('/api/leaderboard', async (req, res) => {
-    const cachePath = path.join(__dirname, 'cache', 'leaderboard.json');
-    let cachedFile = null;
-
-    try {
-        cachedFile = {
-            content: await fs.readFile(cachePath, 'utf8'),
-            stats: await fs.stat(cachePath)
-        };
-    } catch (e) {
-        console.log('No cache file found fetch from api.');
-    }
-
-    if (cachedFile && (Date.now() - cachedFile.stats.mtimeMs) < PLAYER_DATA_CACHE_DURATION) {
-        console.log('Pulling from local file');
-        return res.json(JSON.parse(cachedFile.content));
-    }
-
-    try {
-        const apiResponse = await fetch('http://62.72.177.7:18724/stats.json');
-        if (!apiResponse.ok) {
-            throw new Error(`API returned status: ${apiResponse.status}`);
-        }
-
-        const apiData = await apiResponse.json();
-        
-        await fs.writeFile(cachePath, JSON.stringify(apiData, null, 2));
-        console.log('Successfully fetched from api');
-        return res.json(apiData);
-
-    } catch (fetchError) {
-        console.error('could not fetch from api', fetchError.message);
-        
-        if (cachedFile) {
-            console.log('Using local file');
-            return res.json(JSON.parse(cachedFile.content));
-        }
-
-        console.error('Failed api fetch and no file found');
-        return res.status(500).json({ error: 'Failed to retrieve leaderboard data.' });
-    }
+    db.all('SELECT * FROM baltop', [], (err, rows) => {
+            if (err) {
+                console.error('Database Error:', err);
+                return res.status(500).json({ error: 'Database error' });
+            }
+            
+            res.json(rows)
+        });
 });
+
+setInterval(gaytabase,300000)
+async function gaytabase(){
+    try{
+        const testResponse = await fetch('http://62.72.177.7:18724/stats.json');
+        const test = await testResponse.json();
+        let id = null
+        let name = null
+        let value
+        for (let i = 0; i < 10; i++){
+            id = i
+            name = test.scoreboard.scores[`top_money_${i+1}_name`]["#server"]
+            value = test.scoreboard.scores[`top_money_${i+1}_value`]["#server"]
+            db.run(
+            `UPDATE baltop SET (name, value) = (?, ?) WHERE id = ?`,
+                [name, value, id]
+        )
+        }
+    } catch (error){
+        console.error("Database not cached. Using old Data. " + error.message)
+    }
+}
 
 app.listen(port, () => {
     console.log(`✅ Proxy server is running at http://localhost:${port}`);
